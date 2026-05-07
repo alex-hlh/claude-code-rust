@@ -1,7 +1,7 @@
-//! WebAssembly Module - Browser-compatible Claude Code
+//! WebAssembly 模块 - 浏览器兼容的 Claude Code
 //!
-//! This module provides WebAssembly bindings for running Claude Code
-//! in web browsers with JavaScript interop.
+//! 本模块提供 WebAssembly 绑定，使 Claude Code 可以在
+//! 浏览器中运行并与 JavaScript 交互。
 
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};

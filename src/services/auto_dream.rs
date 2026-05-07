@@ -1,12 +1,12 @@
-//! AutoDream Service - Automatic memory consolidation
+//! AutoDream 服务 - 自动记忆整合
 //!
-//! Background memory consolidation that fires the /dream prompt as a forked
-//! subagent when time-gate passes AND enough sessions have accumulated.
+//! 后台记忆整合服务，当时间门限到期且积累足够多的会话时，
+//! 触发 /dream 提示词作为分叉子代理执行。
 //!
-//! Gate order (cheapest first):
-//!   1. Time: hours since lastConsolidatedAt >= minHours
-//!   2. Sessions: transcript count with mtime > lastConsolidatedAt >= minSessions
-//!   3. Lock: no other process mid-consolidation
+//! 门限检查顺序（从最便宜到最贵）：
+//!   1. 时间：自上次整合以来小时数 >= minHours
+//!   2. 会话：mtime > lastConsolidatedAt 的会话数 >= minSessions
+//!   3. 锁：没有其他进程正在整合中
 
 use chrono::{DateTime, Utc, Duration};
 use serde::{Deserialize, Serialize};

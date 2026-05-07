@@ -1,4 +1,4 @@
-//! MCP Prompts - Prompt system
+//! MCP 提示词 - 提示词系统
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

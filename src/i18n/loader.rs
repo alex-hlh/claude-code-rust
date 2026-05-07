@@ -1,4 +1,4 @@
-//! Locale Loader - Loads locale data from embedded resources
+//! 语言文件加载器 - 从嵌入式资源加载语言数据
 
 use super::{Language, Locale};
 use regex::Regex;

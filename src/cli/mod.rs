@@ -1,9 +1,11 @@
-//! CLI Module - Command Line Interface
+//! CLI 模块 - 命令行接口定义
+//!
+//! 使用 Clap 库定义所有命令行参数和子命令。
 
-pub mod args;
-pub mod commands;
-pub mod repl;
-pub mod ui;
+pub mod args;     // CLI 参数实现
+pub mod commands; // 命令定义
+pub mod repl;     // REPL 实现
+pub mod ui;       // UI 工具
 
 pub use args::Cli;
 pub use repl::Repl;
@@ -11,377 +13,385 @@ pub use repl::Repl;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
-/// Claude Code - AI-powered coding assistant
+/// Claude Code - AI 驱动的编程助手
 #[derive(Parser, Debug)]
 #[command(name = "claude-code")]
 #[command(author = "Anthropic")]
 #[command(version = "0.1.0")]
-#[command(about = "High-performance Rust implementation of Claude Code CLI")]
+#[command(about = "Claude Code 的高性能 Rust 实现")]
 #[command(disable_version_flag = true)]
 #[command(disable_help_subcommand = true)]
 pub struct CliArgs {
-    /// Path to the project directory
+    /// 项目目录路径
     #[arg(short, long, value_name = "PATH")]
     pub path: Option<PathBuf>,
 
-    /// Model to use (sonnet, opus, haiku)
+    /// 使用的模型（sonnet, opus, haiku）
     #[arg(short, long, default_value = "sonnet")]
     pub model: String,
 
-    /// Enable verbose logging
+    /// 启用详细日志
     #[arg(short, long)]
     pub verbose: bool,
 
-    /// Run in non-interactive mode
+    /// 以非交互模式运行
     #[arg(short, long)]
     pub no_interactive: bool,
 
-    /// Print version information
+    /// 打印版本信息
     #[arg(long)]
     pub version: bool,
 
-    /// Print system information
+    /// 打印系统信息
     #[arg(long)]
     pub info: bool,
 
-    /// Subcommands
+    /// 子命令
     #[command(subcommand)]
     pub command: Option<Commands>,
 }
 
+/// CLI 子命令枚举
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Start an interactive REPL session
+    /// 启动交互式 REPL 会话
     Repl {
-        /// Initial prompt to send
+        /// 初始提示
         #[arg(short, long)]
         prompt: Option<String>,
     },
 
-    /// Execute a single query
+    /// 执行单次查询
     Query {
-        /// The query to execute
+        /// 要执行的查询
         #[arg(short, long)]
         prompt: String,
     },
 
-    /// Manage configuration settings
+    /// 管理配置设置
     Config {
         #[command(subcommand)]
         action: ConfigCommands,
     },
 
-    /// Manage MCP servers
+    /// 管理 MCP 服务器
     Mcp {
         #[command(subcommand)]
         action: McpCommands,
     },
 
-    /// Manage plugins
+    /// 管理插件
     Plugin {
         #[command(subcommand)]
         action: PluginCommands,
     },
 
-    /// Manage memory and sessions
+    /// 管理记忆和会话
     Memory {
         #[command(subcommand)]
         action: MemoryCommands,
     },
 
-    /// Voice input mode
+    /// 语音输入模式
     Voice {
-        /// Enable push-to-talk mode
+        /// 启用按住说话模式
         #[arg(short, long)]
         push_to_talk: bool,
     },
 
-    /// Initialize a new project
+    /// 初始化新项目
     Init {
-        /// Project name
+        /// 项目名称
         #[arg(short, long)]
         name: Option<String>,
     },
 
-    /// Update to latest version
+    /// 更新到最新版本
     Update,
 
-    /// Show help and usage information
+    /// 显示帮助信息
     Help {
-        /// Topic to show help for
+        /// 要显示帮助的主题
         #[arg(short, long)]
         topic: Option<String>,
     },
 
-    /// Manage background services
+    /// 管理后台服务
     Services {
         #[command(subcommand)]
         action: ServiceCommands,
     },
 
-    /// Run an agent
+    /// 运行 Agent
     Agent {
-        /// Agent type (guide, explore, plan, verify, general)
+        /// Agent 类型（guide, explore, plan, verify, general）
         #[arg(short, long)]
         agent_type: String,
-        /// Prompt for the agent
+        /// 给 Agent 的提示
         #[arg(short, long)]
         prompt: String,
     },
 
-    /// Manage Magic Docs
+    /// 管理 Magic Docs
     MagicDocs {
         #[command(subcommand)]
         action: MagicDocsCommands,
     },
 
-    /// Team memory sync
+    /// 团队记忆同步
     TeamSync {
         #[command(subcommand)]
         action: TeamSyncCommands,
     },
 
-    /// Manage skills
+    /// 管理 Skills
     Skills {
         #[command(subcommand)]
         action: SkillsCommands,
     },
 
-    /// Run stress tests
+    /// 运行压力测试
     StressTest {
-        /// Number of concurrent requests
+        /// 并发请求数
         #[arg(short, long, default_value = "5")]
         concurrency: usize,
-        /// Number of iterations per request
+        /// 每个请求的迭代次数
         #[arg(short, long, default_value = "10")]
         iterations: usize,
     },
 }
 
+/// 配置子命令
 #[derive(Subcommand, Debug)]
 pub enum ConfigCommands {
-    /// Show current configuration
+    /// 显示当前配置
     Show,
 
-    /// Set a configuration value
+    /// 设置配置值
     Set {
-        /// Configuration key
+        /// 配置键
         key: String,
-        /// Configuration value
+        /// 配置值
         value: String,
     },
 
-    /// Reset configuration to defaults
+    /// 重置配置为默认值
     Reset,
 }
 
+/// MCP 子命令
 #[derive(Subcommand, Debug)]
 pub enum McpCommands {
-    /// List configured MCP servers
+    /// 列出配置的 MCP 服务器
     List,
 
-    /// Add a new MCP server
+    /// 添加新的 MCP 服务器
     Add {
-        /// Server name
+        /// 服务器名称
         name: String,
-        /// Server command
+        /// 服务器命令
         command: String,
     },
 
-    /// Remove an MCP server
+    /// 移除 MCP 服务器
     Remove {
-        /// Server name
+        /// 服务器名称
         name: String,
     },
 
-    /// Restart an MCP server
+    /// 重启 MCP 服务器
     Restart {
-        /// Server name
+        /// 服务器名称
         name: String,
     },
 }
 
+/// 插件子命令
 #[derive(Subcommand, Debug)]
 pub enum PluginCommands {
-    /// List installed plugins
+    /// 列出已安装的插件
     List,
 
-    /// Install a plugin
+    /// 安装插件
     Install {
-        /// Plugin name or URL
+        /// 插件名称或 URL
         plugin: String,
     },
 
-    /// Remove a plugin
+    /// 移除插件
     Remove {
-        /// Plugin name
+        /// 插件名称
         name: String,
     },
 
-    /// Update all plugins
+    /// 更新所有插件
     Update,
 
-    /// Search for plugins
+    /// 搜索插件
     Search {
-        /// Search query
+        /// 搜索查询
         query: String,
     },
 
-    /// Enable a plugin
+    /// 启用插件
     Enable {
-        /// Plugin name
+        /// 插件名称
         name: String,
     },
 
-    /// Disable a plugin
+    /// 禁用插件
     Disable {
-        /// Plugin name
+        /// 插件名称
         name: String,
     },
 }
 
+/// 记忆子命令
 #[derive(Subcommand, Debug)]
 pub enum MemoryCommands {
-    /// Show memory status
+    /// 显示记忆状态
     Status,
 
-    /// Clear all memories
+    /// 清空所有记忆
     Clear,
 
-    /// Export memories
+    /// 导出记忆
     Export {
-        /// Output file path
+        /// 输出文件路径
         #[arg(short, long)]
         output: PathBuf,
     },
 
-    /// Import memories
+    /// 导入记忆
     Import {
-        /// Input file path
+        /// 输入文件路径
         input: PathBuf,
     },
 
-    /// Run memory consolidation (dream)
+    /// 运行记忆整合（dream）
     Dream,
 
-    /// Force AutoDream consolidation
+    /// 强制 AutoDream 整合
     AutoDream,
 }
 
+/// 服务子命令
 #[derive(Subcommand, Debug)]
 pub enum ServiceCommands {
-    /// Show status of all services
+    /// 显示所有服务状态
     Status,
 
-    /// Start all services
+    /// 启动所有服务
     Start,
 
-    /// Stop all services
+    /// 停止所有服务
     Stop,
 
-    /// Check AutoDream status
+    /// 检查 AutoDream 状态
     AutoDream,
 
-    /// Check Voice status
+    /// 检查语音服务状态
     Voice,
 
-    /// Check Magic Docs status
+    /// 检查 Magic Docs 状态
     MagicDocs,
 
-    /// Check Team Sync status
+    /// 检查团队同步状态
     TeamSync,
 
-    /// Check Plugins status
+    /// 检查插件市场状态
     Plugins,
 
-    /// Check Agents status
+    /// 检查 Agent 服务状态
     Agents,
 }
 
+/// Magic Docs 子命令
 #[derive(Subcommand, Debug)]
 pub enum MagicDocsCommands {
-    /// List tracked Magic Docs
+    /// 列出追踪的 Magic Docs
     List,
 
-    /// Check a file for Magic Doc header
+    /// 检查文件的 Magic Doc 头部
     Check {
-        /// File path to check
+        /// 要检查的文件路径
         file: String,
     },
 
-    /// Update a Magic Doc
+    /// 更新 Magic Doc
     Update {
-        /// File path to update
+        /// 要更新的文件路径
         file: String,
-        /// Context for update
+        /// 更新上下文
         #[arg(short, long)]
         context: Option<String>,
     },
 
-    /// Clear all tracked Magic Docs
+    /// 清空所有追踪的 Magic Docs
     Clear,
 }
 
+/// 团队同步子命令
 #[derive(Subcommand, Debug)]
 pub enum TeamSyncCommands {
-    /// Show sync status
+    /// 显示同步状态
     Status,
 
-    /// Authenticate with team
+    /// 团队认证
     Auth {
-        /// Team ID
+        /// 团队 ID
         team_id: String,
     },
 
-    /// Sync memories
+    /// 同步记忆
     Sync,
 
-    /// List team memories
+    /// 列出团队记忆
     List,
 
-    /// Create a team memory
+    /// 创建团队记忆
     Create {
-        /// Memory title
+        /// 记忆标题
         title: String,
-        /// Memory content
+        /// 记忆内容
         #[arg(short, long)]
         content: String,
-        /// Tags (comma-separated)
+        /// 标签（逗号分隔）
         #[arg(short, long)]
         tags: Option<String>,
     },
 
-    /// Delete a team memory
+    /// 删除团队记忆
     Delete {
-        /// Memory ID
+        /// 记忆 ID
         id: String,
     },
 }
 
-
+/// Skills 子命令
 #[derive(Subcommand, Debug)]
 pub enum SkillsCommands {
-    /// List all available skills
+    /// 列出所有可用技能
     List,
 
-    /// Execute a skill
+    /// 执行技能
     Execute {
-        /// Skill name
+        /// 技能名称
         skill: String,
-        /// Arguments for the skill
+        /// 技能参数
         #[arg(trailing_var_arg = true)]
         args: Vec<String>,
     },
 
-    /// Get help for a skill
+    /// 获取技能帮助
     Help {
-        /// Skill name
+        /// 技能名称
         skill: String,
     },
 
-    /// Search for skills
+    /// 搜索技能
     Search {
-        /// Search query
+        /// 搜索查询
         query: String,
     },
 }

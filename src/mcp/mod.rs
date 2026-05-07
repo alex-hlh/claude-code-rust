@@ -1,17 +1,18 @@
-//! MCP (Model Context Protocol) Module
+//! MCP (Model Context Protocol) 模块
 //!
-//! Complete implementation of MCP server with:
-//! - Tool registration and execution
-//! - Resource management
-//! - Prompt system
-//! - Sampling support
+//! MCP 是一种让 AI 模型与外部工具和服务交互的协议。
+//! 本模块包含 MCP 服务器的完整实现：
+//! - 工具注册与执行
+//! - 资源管理
+//! - Prompt 系统
+//! - 采样支持
 
-pub mod tools;
-pub mod resources;
-pub mod prompts;
-pub mod sampling;
-pub mod server;
-pub mod transport;
+pub mod tools;      // MCP 工具定义与执行
+pub mod resources;  // MCP 资源管理
+pub mod prompts;    // Prompt 管理
+pub mod sampling;   // 采样请求
+pub mod server;     // MCP 服务器
+pub mod transport;  // 传输层
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -26,6 +27,7 @@ pub use sampling::{SamplingRequest, SamplingManager};
 pub use server::McpServer;
 pub use crate::config::mcp_config::{McpConfig, McpServerStatus};
 
+/// MCP 服务器信息
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct McpServerInfo {
     pub name: String,
@@ -37,6 +39,7 @@ pub struct McpServerInfo {
     pub last_error: Option<String>,
 }
 
+/// MCP 消息结构（JSON-RPC 2.0）
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct McpMessage {
     pub jsonrpc: String,
@@ -48,6 +51,7 @@ pub struct McpMessage {
 }
 
 impl McpMessage {
+    /// 创建请求消息
     pub fn request(id: i64, method: &str, params: Option<serde_json::Value>) -> Self {
         Self {
             jsonrpc: "2.0".to_string(),
@@ -58,7 +62,8 @@ impl McpMessage {
             error: None,
         }
     }
-    
+
+    /// 创建响应消息
     pub fn response(id: i64, result: serde_json::Value) -> Self {
         Self {
             jsonrpc: "2.0".to_string(),
@@ -69,7 +74,8 @@ impl McpMessage {
             error: None,
         }
     }
-    
+
+    /// 创建错误响应
     pub fn error_response(id: i64, code: i32, message: &str) -> Self {
         Self {
             jsonrpc: "2.0".to_string(),
@@ -82,12 +88,14 @@ impl McpMessage {
     }
 }
 
+/// MCP 错误结构
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct McpError {
     pub code: i32,
     pub message: String,
 }
 
+/// MCP 管理器 - 管理所有 MCP 服务器连接
 pub struct McpManager {
     servers: Arc<RwLock<HashMap<String, McpServerConnection>>>,
     tool_registry: Arc<ToolRegistry>,
@@ -96,6 +104,7 @@ pub struct McpManager {
     sampling_manager: Arc<SamplingManager>,
 }
 
+/// MCP 服务器连接
 struct McpServerConnection {
     config: McpConfig,
     process: Option<tokio::process::Child>,
@@ -104,6 +113,7 @@ struct McpServerConnection {
 }
 
 impl McpManager {
+    /// 创建新的 MCP 管理器
     pub fn new() -> Self {
         Self {
             servers: Arc::new(RwLock::new(HashMap::new())),
@@ -113,11 +123,12 @@ impl McpManager {
             sampling_manager: Arc::new(SamplingManager::new()),
         }
     }
-    
+
+    /// 列出所有配置的服务器
     pub async fn list_servers(&self) -> anyhow::Result<Vec<McpServerInfo>> {
         let settings = crate::config::Settings::load()?;
         let servers = self.servers.read().await;
-        
+
         Ok(settings.mcp_servers.iter().map(|config| {
             let conn = servers.get(&config.name);
             McpServerInfo {
@@ -131,40 +142,43 @@ impl McpManager {
             }
         }).collect())
     }
-    
+
+    /// 添加 MCP 服务器
     pub async fn add_server(&self, config: McpConfig) -> anyhow::Result<()> {
         let mut settings = crate::config::Settings::load()?;
         settings.mcp_servers.push(config);
         settings.save()?;
         Ok(())
     }
-    
+
+    /// 移除 MCP 服务器
     pub async fn remove_server(&self, name: &str) -> anyhow::Result<()> {
         self.stop_server(name).await?;
-        
+
         let mut settings = crate::config::Settings::load()?;
         settings.mcp_servers.retain(|s| s.name != name);
         settings.save()?;
         Ok(())
     }
-    
+
+    /// 启动 MCP 服务器
     pub async fn start_server(&self, name: &str) -> anyhow::Result<()> {
         let settings = crate::config::Settings::load()?;
         let config = settings.mcp_servers.iter()
             .find(|s| s.name == name)
-            .ok_or_else(|| anyhow::anyhow!("Server not found: {}", name))?
+            .ok_or_else(|| anyhow::anyhow!("服务器未找到: {}", name))?
             .clone();
-        
+
         let mut cmd = tokio::process::Command::new(&config.command);
         cmd.args(&config.args);
-        
+
         for (key, value) in &config.env {
             cmd.env(key, value);
         }
-        
+
         let mut config = config;
         config.status = McpServerStatus::Starting;
-        
+
         match cmd.spawn() {
             Ok(process) => {
                 let mut servers = self.servers.write().await;
@@ -177,7 +191,7 @@ impl McpManager {
                     started_at: Some(Utc::now()),
                     last_error: None,
                 });
-                println!("✅ MCP server started: {}", name);
+                println!("✅ MCP 服务器已启动: {}", name);
             }
             Err(e) => {
                 let mut servers = self.servers.write().await;
@@ -188,13 +202,14 @@ impl McpManager {
                     started_at: None,
                     last_error: Some(e.to_string()),
                 });
-                println!("❌ Failed to start MCP server {}: {}", name, e);
+                println!("❌ 启动 MCP 服务器失败 {}: {}", name, e);
             }
         }
-        
+
         Ok(())
     }
-    
+
+    /// 停止 MCP 服务器
     pub async fn stop_server(&self, name: &str) -> anyhow::Result<()> {
         let mut servers = self.servers.write().await;
         if let Some(conn) = servers.get_mut(name) {
@@ -202,17 +217,19 @@ impl McpManager {
                 let _ = process.kill().await;
             }
             conn.config.status = McpServerStatus::Stopped;
-            println!("🛑 MCP server stopped: {}", name);
+            println!("🛑 MCP 服务器已停止: {}", name);
         }
         Ok(())
     }
-    
+
+    /// 重启 MCP 服务器
     pub async fn restart_server(&self, name: &str) -> anyhow::Result<()> {
         self.stop_server(name).await?;
         tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
         self.start_server(name).await
     }
-    
+
+    /// 启动所有自动启动的服务器
     pub async fn start_all(&self) -> anyhow::Result<()> {
         let settings = crate::config::Settings::load()?;
         for server in &settings.mcp_servers {
@@ -222,30 +239,35 @@ impl McpManager {
         }
         Ok(())
     }
-    
+
+    /// 停止所有服务器
     pub async fn stop_all(&self) -> anyhow::Result<()> {
         let servers = self.servers.read().await;
         let names: Vec<String> = servers.keys().cloned().collect();
         drop(servers);
-        
+
         for name in names {
             self.stop_server(&name).await?;
         }
         Ok(())
     }
-    
+
+    /// 获取工具注册表
     pub fn tool_registry(&self) -> Arc<ToolRegistry> {
         self.tool_registry.clone()
     }
-    
+
+    /// 获取资源管理器
     pub fn resource_manager(&self) -> Arc<ResourceManager> {
         self.resource_manager.clone()
     }
-    
+
+    /// 获取 Prompt 管理器
     pub fn prompt_manager(&self) -> Arc<PromptManager> {
         self.prompt_manager.clone()
     }
-    
+
+    /// 获取采样管理器
     pub fn sampling_manager(&self) -> Arc<SamplingManager> {
         self.sampling_manager.clone()
     }

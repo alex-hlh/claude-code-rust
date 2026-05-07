@@ -1,8 +1,7 @@
-//! Voice Input Service - Audio recording for push-to-talk voice input
+//! 语音输入服务 - 按键通话语音录制
 //!
-//! Recording uses native audio capture (cpal) on macOS, Linux, and Windows
-//! for in-process mic access. Falls back to SoX `rec` or arecord (ALSA)
-//! on Linux if the native module is unavailable.
+//! 录制使用原生音频捕获（cpal）在 macOS、Linux 和 Windows 上进行进程内麦克风访问。
+//! 如果原生模块不可用，在 Linux 上回退到 SoX `rec` 或 arecord（ALSA）。
 
 use std::sync::Arc;
 use tokio::sync::RwLock;

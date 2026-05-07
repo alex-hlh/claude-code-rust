@@ -1,6 +1,6 @@
-//! Skill Executor
+//! 技能执行器
 //!
-//! Executes skills with parameter parsing and context management.
+//! 执行技能，包含参数解析和上下文管理。
 
 use super::{Skill, SkillParams, SkillContext, SkillResult, SkillError};
 use regex::Regex;

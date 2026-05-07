@@ -1,4 +1,4 @@
-//! Plugin Loader - Hot loading support
+//! 插件加载器 - 热加载支持
 
 use std::path::Path;
 use std::sync::Arc;

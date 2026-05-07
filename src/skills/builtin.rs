@@ -1,6 +1,6 @@
-//! Built-in Skills
+//! 内置技能
 //!
-//! Predefined skills for common operations.
+//! 预定义的常用操作技能。
 
 use super::{Skill, SkillParams, SkillContext, SkillResult, SkillError, SkillCategory};
 use async_trait::async_trait;

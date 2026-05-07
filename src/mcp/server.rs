@@ -1,4 +1,4 @@
-//! MCP Server - Server implementation
+//! MCP 服务器 - 服务器实现
 
 use std::sync::Arc;
 

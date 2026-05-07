@@ -1,4 +1,4 @@
-//! Session Module - Session management
+//! 会话模块 - 会话管理
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};

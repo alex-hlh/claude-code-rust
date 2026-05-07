@@ -1,8 +1,7 @@
-//! Team Memory Sync Service - Team memory file synchronization
+//! 团队记忆同步服务 - 团队记忆文件同步
 //!
-//! Team memory sync allows team members to share memory files in the
-//! `.claude/team/` directory. Supports OAuth authentication for
-//! Claude.ai Enterprise/Team users.
+//! 团队记忆同步允许团队成员共享 .claude/team/ 目录中的记忆文件。
+//! 支持 Claude.ai Enterprise/Team 用户的 OAuth 认证。
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};

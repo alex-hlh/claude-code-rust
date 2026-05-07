@@ -1,7 +1,6 @@
-//! Web Module - Plugin Marketplace Web Interface
+//! Web 模块 - 插件市场 Web 界面
 //!
-//! This module provides a web server for the plugin marketplace
-//! using Axum framework.
+//! 本模块使用 Axum 框架提供 Web 服务器用于插件市场。
 
 pub mod server;
 pub mod routes;

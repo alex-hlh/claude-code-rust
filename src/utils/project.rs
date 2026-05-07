@@ -1,4 +1,4 @@
-//! Project utilities
+//! 项目工具
 
 use std::path::PathBuf;
 

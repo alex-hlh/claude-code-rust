@@ -1,4 +1,4 @@
-//! MCP Sampling - LLM sampling support
+//! MCP 采样 - LLM 采样支持
 
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;

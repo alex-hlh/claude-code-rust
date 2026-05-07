@@ -1,4 +1,4 @@
-//! MCP Tools - Tool registration and execution
+//! MCP 工具 - 工具注册与执行
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

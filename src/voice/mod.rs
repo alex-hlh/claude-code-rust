@@ -1,4 +1,4 @@
-//! Voice Input Module
+//! 语音输入模块
 
 use crate::state::AppState;
 

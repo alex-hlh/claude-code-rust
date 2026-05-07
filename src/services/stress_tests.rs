@@ -1,6 +1,6 @@
-//! Stress Tests Module - Comprehensive load and stress testing for services
+//! 压力测试模块 - 服务的全面负载和压力测试
 //!
-//! This module provides stress testing utilities for all Claude Code services.
+//! 本模块为所有 Claude Code 服务提供压力测试工具。
 
 use std::sync::Arc;
 use std::time::Instant;

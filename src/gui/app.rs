@@ -1,4 +1,4 @@
-//! Main Application - GUI Application State and Logic
+//! 主应用 - GUI 应用状态和逻辑
 
 use eframe::Frame;
 use egui::{CentralPanel, Context, SidePanel, TopBottomPanel};

@@ -1,6 +1,6 @@
-//! Sidebar Component - Navigation sidebar for the GUI
+//! 侧边栏组件 - GUI 导航侧边栏
 //!
-//! Claude-style sidebar with conversation list and navigation
+//! Claude 风格的侧边栏，包含对话列表和导航
 
 use egui::{Color32, RichText, Ui, Vec2, Frame, Rounding, Margin, Stroke};
 

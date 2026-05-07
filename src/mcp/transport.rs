@@ -1,4 +1,4 @@
-//! MCP Transport - Communication transport layer
+//! MCP 传输层 - 通信传输层
 
 use serde::{Deserialize, Serialize};
 use std::io::{BufRead, Write};

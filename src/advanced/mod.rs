@@ -1,13 +1,13 @@
-//! Advanced Features Module
+//! 高级功能模块
 //!
-//! Features:
-//! - SSH connection support
-//! - Remote execution
-//! - Project initialization
+//! 提供高级功能支持，包括：
+//! - SSH 连接支持
+//! - 远程执行
+//! - 项目初始化
 
-pub mod ssh;
-pub mod remote;
-pub mod project_init;
+pub mod ssh;           // SSH 连接支持
+pub mod remote;        // 远程执行
+pub mod project_init;  // 项目初始化
 
 use serde::{Deserialize, Serialize};
 

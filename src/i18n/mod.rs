@@ -1,11 +1,10 @@
-//! Internationalization (i18n) Module - Multi-language support
+//! 国际化（i18n）模块 - 多语言支持
 //!
-//! This module provides localization support for Claude Code using
-//! Mozilla's Fluent localization system.
+//! 本模块使用 Mozilla 的 Fluent 本地化系统为 Claude Code 提供多语言支持。
 
-pub mod translator;
-pub mod loader;
-pub mod locales;
+pub mod translator;  // 翻译引擎
+pub mod loader;       // 语言文件加载器
+pub mod locales;      // 语言数据
 
 pub use translator::Translator;
 pub use loader::LocaleLoader;

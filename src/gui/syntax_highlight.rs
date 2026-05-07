@@ -1,4 +1,4 @@
-//! Syntax Highlighting - Code block syntax highlighting using syntect
+//! 语法高亮 - 使用 syntect 的代码块语法高亮
 
 use egui::{Color32, TextFormat, FontId, FontFamily, Stroke};
 use syntect::{

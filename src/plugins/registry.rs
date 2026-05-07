@@ -1,4 +1,4 @@
-//! Plugin Registry - Plugin registration and management
+//! 插件注册表 - 插件注册和管理
 
 use std::collections::HashMap;
 use std::sync::Arc;

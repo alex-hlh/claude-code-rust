@@ -1,4 +1,4 @@
-//! Terminal Module - Terminal UI with Ratatui
+//! 终端模块 - 使用 Ratatui 的终端 UI
 
 use ratatui::{
     backend::CrosstermBackend,

@@ -1,4 +1,6 @@
-//! SSH Connection Support
+//! SSH 连接支持
+//!
+//! 提供 SSH 会话管理、远程命令执行、文件上传下载功能。
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

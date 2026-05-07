@@ -1,4 +1,4 @@
-//! Locales Module - Locale data loading
+//! 语言模块 - 语言数据加载
 
 use super::{Language, Locale, loader::LocaleLoader};
 

@@ -1,15 +1,14 @@
-//! GUI Module - Desktop GUI using egui/eframe
+//! GUI 模块 - 使用 egui/eframe 的桌面 GUI
 //!
-//! This module provides a native desktop GUI for Claude Code
-//! with a modern, responsive interface.
+//! 本模块为 Claude Code 提供原生桌面 GUI 界面，采用现代化的响应式设计。
 
-pub mod app;
-pub mod chat;
-pub mod sidebar;
-pub mod settings;
-pub mod theme;
-pub mod syntax_highlight;
-pub mod tool_calls;
+pub mod app;           // 主应用
+pub mod chat;          // 聊天界面
+pub mod sidebar;       // 侧边栏导航
+pub mod settings;      // 设置面板
+pub mod theme;         // 主题系统
+pub mod syntax_highlight;  // 语法高亮
+pub mod tool_calls;    // 工具调用展示
 
 pub use app::ClaudeCodeApp;
 pub use theme::Theme;

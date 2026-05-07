@@ -1,4 +1,6 @@
-//! Remote Execution Support
+//! 远程执行支持
+//!
+//! 提供 HTTP/HTTPS 请求执行、重试机制、缓存支持。
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

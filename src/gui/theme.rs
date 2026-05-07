@@ -1,6 +1,6 @@
-//! Theme System - Claude Code UI themes
+//! 主题系统 - Claude Code UI 主题
 //!
-//! Based on Claude.ai design system with warm orange/brown accent colors
+//! 基于 Claude.ai 设计系统，使用温暖的橙色/棕色强调色
 
 use egui::{Color32, FontFamily, FontId, TextStyle, Visuals, Stroke, Rounding};
 

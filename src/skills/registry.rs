@@ -1,6 +1,6 @@
-//! Skill Registry
+//! 技能注册表
 //!
-//! Manages registration and lookup of skills.
+//! 管理技能注册和查找。
 
 use super::{Skill, SkillCategory, SkillError};
 use std::collections::HashMap;

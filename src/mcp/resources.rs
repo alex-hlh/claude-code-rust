@@ -1,4 +1,4 @@
-//! MCP Resources - Resource management
+//! MCP 资源 - 资源管理
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

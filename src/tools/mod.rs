@@ -1,4 +1,4 @@
-//! Tools Module - File operations, commands, search, etc.
+//! 工具模块 - 文件操作、命令、搜索等
 
 pub mod file_read;
 pub mod file_edit;

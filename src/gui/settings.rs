@@ -1,4 +1,4 @@
-//! Settings Panel - Application settings UI
+//! 设置面板 - 应用程序设置 UI
 
 use egui::{Color32, RichText, Ui, Vec2};
 

@@ -1,12 +1,12 @@
-//! Chat UI Component - Full recreation of Claude Code chat interface
+//! 聊天 UI 组件 - 完整重现 Claude Code 聊天界面
 //!
-//! Features:
-//! - Exact Claude.ai message styling
-//! - Syntax highlighted code blocks with copy button
-//! - Tool call visualization
-//! - File attachments
-//! - Thinking process expand/collapse
-//! - Perfect markdown rendering
+//! 功能包括：
+//! - 精确的 Claude.ai 消息样式
+//! - 带复制按钮的语法高亮代码块
+//! - 工具调用可视化
+//! - 文件附件
+//! - 思考过程展开/折叠
+//! - 完美的 Markdown 渲染
 
 use egui::{Color32, RichText, ScrollArea, TextEdit, Ui, Vec2, Frame, Stroke, Rounding, Margin, Layout, Align};
 use chrono::{DateTime, Utc};

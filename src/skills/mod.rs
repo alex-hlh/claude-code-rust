@@ -1,15 +1,14 @@
-//! Skills Framework
+//! Skills 框架
 //!
-//! A framework for defining and executing high-level skills that combine
-//! multiple tools and operations. Skills are similar to macros or workflows
-//! that can be triggered by specific commands (e.g., /commit, /review).
+//! 用于定义和执行高级技能的框架，这些技能组合了多种工具和操作。
+//! Skills 类似于可以通过特定命令触发的宏或工作流（例如 /commit、/review）。
 //!
-//! Features:
-//! - Skill trait for defining custom skills
-//! - Skill registry for managing skills
-//! - Skill executor with context and parameter parsing
-//! - Built-in skills for common operations
-//! - Skill chaining and composition
+//! 功能包括：
+//! - Skill trait 用于定义自定义技能
+//! - SkillRegistry 用于管理技能
+//! - SkillExecutor 用于上下文和参数解析
+//! - 内置通用操作技能
+//! - 技能链接和组合
 
 pub mod registry;
 pub mod executor;

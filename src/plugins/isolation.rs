@@ -1,4 +1,4 @@
-//! Plugin Isolation - Plugin sandbox and isolation
+//! 插件隔离 - 插件沙箱和隔离
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;

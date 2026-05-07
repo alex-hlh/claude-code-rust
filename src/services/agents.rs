@@ -1,11 +1,11 @@
-//! Agents Service - Built-in agent system
+//! Agent 服务 - 内置 Agent 系统
 //!
-//! Built-in agents for various tasks including:
-//! - claudeCodeGuideAgent: Claude Code guidance
-//! - exploreAgent: Codebase exploration
-//! - generalPurposeAgent: General purpose tasks
-//! - planAgent: Planning and task breakdown
-//! - verificationAgent: Verification and testing
+//! 内置 Agent 用于处理各种任务，包括：
+//! - claudeCodeGuideAgent: Claude Code 指南
+//! - exploreAgent: 代码库探索
+//! - generalPurposeAgent: 通用任务
+//! - planAgent: 规划和任务分解
+//! - verificationAgent: 验证和测试
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};

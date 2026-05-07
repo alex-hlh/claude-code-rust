@@ -1,4 +1,6 @@
-//! Project Initialization
+//! 项目初始化模块
+//!
+//! 提供项目模板管理、初始化功能，支持 Rust/Node.js/Python 等多种项目类型。
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

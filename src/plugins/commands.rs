@@ -1,4 +1,4 @@
-//! Plugin Commands - Custom command system
+//! 插件命令 - 自定义命令系统
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

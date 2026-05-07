@@ -1,4 +1,4 @@
-//! GUI Main Entry Point - Desktop GUI Application
+//! GUI 主入口 - 桌面 GUI 应用程序
 
 use claude_code_rs::gui::app::run_gui;
 

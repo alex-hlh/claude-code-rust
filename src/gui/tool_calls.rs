@@ -1,11 +1,11 @@
-//! Tool Call Visualization - Display tool calls in chat interface
+//! 工具调用可视化 - 在聊天界面中显示工具调用
 //!
-//! Recreates Claude Code's tool call cards with:
-//! - Expandable/collapsible details
-//! - File read/write visualization
-//! - Bash command execution display
-//! - File diff viewer
-//! - Tool result display
+//! 重现 Claude Code 的工具调用卡片，包含：
+//! - 可展开/折叠的详情
+//! - 文件读写可视化
+//! - Bash 命令执行显示
+//! - 文件差异查看器
+//! - 工具结果展示
 
 use egui::{Color32, RichText, Ui, Frame, Rounding, Margin, Stroke, Layout, Align};
 use std::time::{SystemTime, UNIX_EPOCH};

@@ -1,4 +1,4 @@
-//! Translator - Message translation engine
+//! 翻译器 - 消息翻译引擎
 
 use super::{Language, Locale, locales};
 

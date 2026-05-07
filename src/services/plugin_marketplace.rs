@@ -1,7 +1,7 @@
-//! Plugin Marketplace Service - Plugin management and marketplace
+//! 插件市场服务 - 插件管理和市场
 //!
-//! Background plugin and marketplace auto-install manager.
-//! Supports installing, updating, and managing plugins from various sources.
+//! 后台插件和市场自动安装管理器。
+//! 支持从各种来源安装、更新和管理插件。
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};

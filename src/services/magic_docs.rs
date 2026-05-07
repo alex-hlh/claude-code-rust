@@ -1,8 +1,8 @@
-//! Magic Docs Service - Automatic documentation maintenance
+//! Magic Docs 服务 - 自动文档维护
 //!
-//! Magic Docs automatically maintains markdown documentation files marked with special headers.
-//! When a file with "# MAGIC DOC: [title]" is read, it runs periodically in the background
-//! using a forked subagent to update the document with new learnings from the conversation.
+//! Magic Docs 自动维护带有特殊头部的 markdown 文档文件。
+//! 当读取带有 "# MAGIC DOC: [title]" 的文件时，它会在后台定期运行，
+//! 使用分叉子代理根据对话更新文档中的新学习内容。
 
 use chrono::{DateTime, Utc};
 use regex::Regex;

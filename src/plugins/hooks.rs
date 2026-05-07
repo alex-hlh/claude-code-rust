@@ -1,4 +1,4 @@
-//! Plugin Hooks - Hook system for plugin events
+//! 插件钩子 - 插件事件钩子系统
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
